@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+</head>
+<body>
+    
+<!-- REGISTATION -->
+<form action="" id="register">
+    <h1>registation form</h1>
+    <input
+      type="text"
+      name="username"
+      id="username"
+      placeholder="username" autocomplete="username"
+    /><br />
+    <p></p>
+    <input type="email" name="email" id="email" placeholder="email" autocomplete="email" /><br />
+    <p></p>
+    <input
+      type="password"
+      name="password"
+      id="password"
+      placeholder="password" autocomplete="current-password"
+    /><br />
+    <p></p>
+    <button type="submit">REGISTER</button>
+  </form>
+  <script>
+     // for register
+     document
+        .getElementById("register")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          let input_Name = document.getElementsByName("username")[0].value;
+          let input_Email = document.getElementsByName("email")[0].value;
+          let input_Password = document.getElementsByName("password")[0].value;
+          let valid = true;
+            // Validate Username
+          let regex_Name = /^[A-z0-9]{5,}$/gi;
+          if (regex_Name.test(input_Name)) {
+            console.log("valid name");
+          } else {
+            valid = false;
+            let para1 = document.getElementsByTagName("p")[0];
+            para1.textContent = "Invalid USERNAME";
+          }
+          // Validate email
+          let regex_Email = /^[A-z0-9.-_$]+@[A-z0-9]+.[A-z]{2,}$/gi;
+          if (regex_Email.test(input_Email)) {
+            console.log("valid email");
+          } else {
+            valid = false;
+            let para2 = document.getElementsByTagName("p")[1];
+            para2.textContent = "invalid EMAIL";
+          }
+          // Validate password
+          let regex_Password =
+            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+          if (regex_Password.test(input_Password)) {
+            console.log("valid password");
+          } else {
+            valid = false;
+            let para3 = document.getElementsByTagName("p")[2];
+            para3.textContent = "Invalid PASSWORD";
+          }
+
+          //if inputs are valid it will create object
+          if (valid) {
+            let data_Obj = {
+              username: input_Name,
+              email: input_Email,
+              password: input_Password,
+            };
+
+
+            //make change by json exchange stringfy()
+            let jsonstrng=JSON.stringify(data_Obj);
+            // console.log(jsonstrng);
+
+
+            //lets store it in localstorage
+            localStorage.setItem("userdata",jsonstrng);
+            alert("Registration successful!");
+            
+
+          }
+          // Clear input fields
+          document.getElementsByName("username")[0].value = "";
+          document.getElementsByName("email")[0].value = "";
+          document.getElementsByName("password")[0].value = "";
+          e.stopPropagation()
+        });
+        // localStorage.removeItem("email")
+        // localStorage.clear()
+  </script>
+</body>
+</html>

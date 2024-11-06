@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+</head>
+<body>
+    <!-- LOGIN -->
+
+    <form action="" id="login">
+        <h1>loginform</h1>
+        <input type="email" name="login-email" id="login_email" placeholder="email" autocomplete="email" >
+        <p id="login-email-error"></p>
+        <input type="password" name="login-password" id="login_password" placeholder="password" autocomplete="current-password">
+        <p id="login-password-error"></p>
+        <button type="submit">LOGIN</button>
+    </form>
+    <script>
+          document.getElementById("login").addEventListener("submit",(e)=>{
+        e.preventDefault()
+        let Login_Email = document.getElementById("login_email").value
+        // console.log(Login_Email);
+        
+        let Login_Password = document.getElementById("login_password").value
+        // console.log(Login_Password);
+        
+        let storedata=localStorage.getItem("userdata")
+        // console.log(storedata);
+        
+        let parseuserdata =storedata?JSON.parse(storedata):null;
+        // console.log(parseuserdata);
+        
+        let valid=true;
+        if (!parseuserdata || Login_Email !== parseuserdata.email) {
+                valid = false;
+                document.getElementById("login-email-error").textContent = "Invalid email.";
+            }
+            if (!parseuserdata || Login_Password !== parseuserdata.password) {
+                valid = false;
+                document.getElementById("login-password-error").textContent = "Invalid password.";
+            }
+
+            // If valid, login success
+            if (valid) {
+                alert("Login successful!");
+                // Clear input fields
+                window.open("http://www.google.com")
+                document.getElementById("login").reset();
+            }
+        })
+        // localStorage.removeItem("email")
+    </script>
+</body>
+</html>
